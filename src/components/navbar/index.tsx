@@ -4,17 +4,17 @@ export default () => {
 
     return <nav className="navbar navbar-expand-lg bg-body-tertiary">
     <div className="container-fluid">
-      <a className="navbar-brand" href="#">Lead</a>
+      <a className="navbar-brand" href="#">Galaxy Gym</a>
       <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item">
-            <Link className="nav-link" aria-current="page" to="/lead">Create</Link>
+            <Link className="nav-link" aria-current="page" to="/enroll">Enroll</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/leads">Leads</Link>
+            <Link className="nav-link" to="/memberships">Memberships</Link>
           </li>
         </ul>
       </div>

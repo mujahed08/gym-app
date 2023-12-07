@@ -13,7 +13,7 @@ export default () => {
       const data = response.data;
       localStorage.setItem("user", JSON.stringify(data));
       localStorage.setItem("timestamp", Date.now().toString())
-      navigate("/leads");
+      navigate("/memberships");
       console.log(response);
     } else {
       setLoginFailed(!loginFailed);
