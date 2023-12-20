@@ -39,13 +39,13 @@ export default () => {
     // console.log(diffrencDays > 15);
 
     if (diffrencDays > 15) {
-      expireText = `Membership will expire after ${diffrencDays} days`;
-      expireClass = "text-info";
+      expireText = `Membership will expire in ${diffrencDays} days`;
+      expireClass = "text-success";
     } else if (diffrencDays > 7) {
-      expireText = `Membership will expire after ${diffrencDays} days`;
+      expireText = `Membership will expire in ${diffrencDays} days`;
       expireClass = "text-warning";
     } else if (diffrencDays > 3) {
-      expireText = `Membership will expire after ${diffrencDays} days`;
+      expireText = `Membership will expire in ${diffrencDays} days`;
       expireClass = "text-danger";
     }
 
@@ -78,12 +78,12 @@ export default () => {
                 <span className="ms-2 text-primary">Expired on</span>{" "}
               </label>
               <p>
-                <strong className={expiredDate(membership.end_dt).expireClass}>
+                <strong className={`${expiredDate(membership.end_dt).expireClass}`}>
                   {expiredDate(membership.end_dt).expireText}
                 </strong>
               </p>
             </div>
-            <div className="col-5 mt-2">
+            <div className="col-6 mt-2">
               <label htmlFor="phone_no">
                 <span className="bi bi-telephone-fill text-primary"></span>
                 <span className="ms-2 text-primary">Contact</span>{" "}
@@ -92,7 +92,7 @@ export default () => {
                 <strong>{membership.phone_no}</strong>
               </p>
             </div>
-            <div className="col-7 mt-2">
+            <div className="col-6 mt-2">
               <label htmlFor="phone_no">
                 <span className="bi bi-body-text text-primary"></span>
                 <span className="ms-2 text-primary">Remarks</span>{" "}
@@ -102,29 +102,29 @@ export default () => {
               </p>
             </div>
 
-            <div className="col-4 mt-2">
-              <label htmlFor="start_dt">
-                <span className="bi bi-calendar-date text-primary"></span>
-                <span className="ms-2 text-primary">Start Date</span>{" "}
+            <div className="col-6 mt-2">
+              <label htmlFor="start_dt" className="d-flex">
+                <span className="bi bi-calendar-date text-primary me-2"></span>
+                <p className="m-0 text-primary fs-6">Start Date</p>{" "}
               </label>
               <p>
                 <strong>{formatDate(membership.start_dt)}</strong>
               </p>
             </div>
-            <div className="col-4 mt-2">
-              <label htmlFor="end_dt">
-                <span className="bi bi-calendar-date text-primary"></span>
-                <span className="ms-2 text-primary">End Date</span>{" "}
+            <div className="col-6 mt-2">
+              <label htmlFor="end_dt" className="d-flex">
+                <span className="bi bi-calendar-date text-primary me-2"></span>
+                <p className="m-0 text-primary">End Date</p>{" "}
               </label>
               <p>
                 <strong>{formatDate(membership.end_dt)}</strong>
               </p>
             </div>
 
-            <div className="col-4 mt-2">
-              <label htmlFor="_period">
-                <span className="bi bi-calendar-week text-primary"></span>
-                <span className="ms-2 text-primary">Period</span>{" "}
+            <div className="col-6 mt-2">
+              <label htmlFor="_period" className="d-flex">
+                <span className="bi bi-calendar-week text-primary me-2"></span>
+                <p className="m-0 text-primary">Period</p>{" "}
               </label>
               <p>
                 <strong>{membership._period}</strong>
@@ -140,7 +140,7 @@ export default () => {
                 <strong>{membership.payment}</strong>
               </p>
             </div>
-            <div className="col-5 mt-2">
+            <div className="col-12 mt-2">
               <label htmlFor="manage_by">
                 <span className="bi bi-person text-primary"></span>
                 <span className="ms-2 text-primary">Manage By</span>{" "}
@@ -150,19 +150,21 @@ export default () => {
               </p>
             </div>
 
-            <div className="col-12 mt-2 d-flex">
+            <div className="col-6  d-flex">
               <Link
                 className="icon-link icon-link-hover"
                 to={`/membership/remove/${membership.id}`}
               >
-                <span className="bi bi-trash text-danger"></span>
+                <span className="bi bi-trash-fill text-danger fs-5"></span>
               </Link>{" "}
+              </div>
+              <div className="col-6 d-flex">
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <Link
                 className="icon-link icon-link-hover"
                 to={`/membership/edit/${membership.id}`}
               >
-                <span className="bi bi-pencil text-success"></span>
+                <span className="bi bi-pencil-fill text-success fs-5"></span>
               </Link>
             </div>
           </div>

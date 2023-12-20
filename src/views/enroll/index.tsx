@@ -15,18 +15,43 @@ export default () => {
     const [end_dt, setEndDt] = useState<Date>(edt);
     const [payment, setPayment] = useState<any>('');
     const [subscriptions, setSubscriptions] = useState<any>('');
-    
     const [remarks, setRemarks] = useState<string>('');
+    const [error, setError] = useState<any>({});
 
+
+    const validateFeilds = () => {
+      const textErrors: any = {};
+      if (!_name) {
+        textErrors._name = "*Name is Required !";
+      }
+      if (!_period) {
+        textErrors._period = "*Period is Required !";
+      }
+      if (!phone_no) {
+        textErrors.phone_no = "*Phone Number is Required !";
+      }
+      if (!payment) {
+        textErrors.payment = "*Payment is Required !";
+      }
+      if (!remarks) {
+        textErrors.remarks = "*Remark is Required !";
+      }
+  
+      setError(textErrors);
+      return Object.keys(textErrors).length === 0;
+    };
   
     const handleSubmit = async (e:any) => {
         e.preventDefault();
-        setSubscriptions('[]')
-        const response = await enroll({_name, _period, phone_no, start_dt, end_dt, payment, 
-          subscriptions, remarks});
-        if (response.status == 200) {
-          navigate("/memberships");
+        setSubscriptions('[]');
+        if(validateFeilds()){
+          const response = await enroll({_name, _period, phone_no, start_dt, end_dt, payment, 
+            subscriptions, remarks});
+            if (response.status == 200) {
+              navigate("/memberships");
+            }
         }
+   
   };
 
   const periodChangeHandler = (e:any) => {
@@ -39,6 +64,7 @@ export default () => {
       setEndDt(dt)
     }
   }
+
 
   return (
     <div className="container-fluid my-4">
@@ -58,6 +84,7 @@ export default () => {
             </label>
             <input onChange={(e) => setName(e.target.value)} placeholder="Name" type="text" className="form-control p-3 text-light" id="_nameText" />
           </div>
+          {error._name && <p className="text-danger m-0 fs-6">{error._name}</p>}
           <div className="mb-2">
             <label htmlFor="phone_noText" className="form-label mb-0">
               <span className="bi bi-telephone-fill text-primary"></span>
@@ -65,9 +92,11 @@ export default () => {
             </label>
             <input onChange={(e) => setPhoneNo(e.target.value)} type="text" className="form-control p-3 text-light" id="phone_noText" placeholder="Phone Number" />  
           </div>
+          {error.phone_no && <p className="text-danger m-0 fs-6">{error.phone_no}</p>}
           <div className="">
             <label htmlFor="floatingSelect"><span className="bi bi-shop text-primary"></span><span className="ms-2 text-primary">Period</span></label>
             <select onChange={periodChangeHandler} className="form-select p-3" id="floatingSelect" aria-label="Floating label select example">
+               <option value="">Select....</option>
                 <option value="1 Month">1 Month</option>
                 <option value="2 Months">2 Months</option>
                 <option value="3 Months">3 Months</option>
@@ -77,6 +106,7 @@ export default () => {
                 <option value="12 Months">12 Months</option>
             </select>
           </div>
+          {error._period && <p className="text-danger m-0 fs-6">{error._period}</p>}
           <div>
             <label htmlFor="startDtText" className="form-label mb-0 ">
               <span className="bi bi-card-checklist text-primary"></span>
@@ -98,6 +128,7 @@ export default () => {
             </label>
             <input onChange={(e) => setPayment(e.target.value)} placeholder="Amount" type="number" className="form-control p-3 text-light" id="paymentText" />
           </div>
+          {error.payment && <p className="text-danger m-0 fs-6">{error.payment}</p>}
           <div className="">
             <label htmlFor="feedbackText" className="form-label mb-0 ">
               <span className="bi bi-card-checklist text-primary"></span>
@@ -105,6 +136,7 @@ export default () => {
             </label>
             <input onChange={(e) => setRemarks(e.target.value)} placeholder="Remarks" type="text" className="form-control p-3 text-light" id="feedbackText" />
           </div>
+          {error.remarks && <p className="text-danger m-0 fs-6">{error.remarks}</p>}
           <div>
             <button className="btn btn-primary" type="submit">Enroll</button>&nbsp;&nbsp;
             <button className="btn btn-danger" type="reset">Cancel</button>

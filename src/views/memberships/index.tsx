@@ -26,10 +26,33 @@ export default () => {
   }, [tab]);
 
 
-  const formatDateTime = (datetime:any) => {
-    let date = new Date(datetime);
-    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
-  }
+  // const formatDateTime = (datetime:any) => {
+  //   let date = new Date(datetime);
+  //   return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
+  // }
+
+  const expiredDate = (endDate: any) => {
+    const startDt = new Date();
+    const endDt = new Date(endDate);
+    const diffrencTime = endDt.getTime() - startDt.getTime();
+    const diffrencDays = Math.round(diffrencTime / (1000 * 3600 * 24));
+    let expireText = "";
+    let expireClass;
+    // console.log(diffrencDays > 15);
+
+    if (diffrencDays > 15) {
+      expireText = `Membership will expire in ${diffrencDays} days`;
+      expireClass = "text-success";
+    } else if (diffrencDays > 7) {
+      expireText = `Membership will expire in ${diffrencDays} days`;
+      expireClass = "text-warning";
+    } else if (diffrencDays > 3) {
+      expireText = `Membership will expire in ${diffrencDays} days`;
+      expireClass = "text-danger";
+    }
+
+    return { expireText, expireClass };
+  };
 
   /* const formatDate = (datetime:any) => {
     let date = new Date(datetime);
@@ -55,11 +78,18 @@ export default () => {
                 </div>
                 <div className="col-10">
                     <h5 className="card-title">{membership._name}</h5>
-                    <h6 className="card-subtitle text-body-secondary">
-                        <span>{formatDateTime(membership?.created_on)}</span>
-                    </h6>
+                    {/* <h6 className="card-subtitle text-body-secondary"> */}
+                        {/* <span>{formatDateTime(membership?.created_on)}</span> */}
+                    {/* </h6> */}
                 </div>
-                <div className="col-5 mt-2">
+                <div className="col-12">
+                  <p>
+                  <strong className={`${expiredDate(membership.end_dt).expireClass}`}>
+                  {expiredDate(membership.end_dt).expireText}
+                </strong>
+                  </p>
+                </div>
+                <div className="col-6 mt-2">
                     <label htmlFor="phone_no">
                         <span className="bi bi-telephone-fill text-primary"></span>
                     <span className="ms-2 text-primary">Contact</span> </label>
@@ -67,9 +97,9 @@ export default () => {
                         <strong>{membership.phone_no}</strong>
                     </p>
                 </div>
-                <div className="col-7 mt-2">
+                <div className="col-6 mt-2">
                     <label htmlFor="phone_no">
-                        <span className="bi bi-telephone-fill text-primary"></span>
+                        <span className="bi bi-body-text text-primary"></span>
                     <span className="ms-2 text-primary">Remarks</span> </label>
                     <p>
                         <strong>{membership.remarks}</strong>
